@@ -1,7 +1,9 @@
-// const fs = require('fs/promises')
-// const contacts = require('./contacts.json')
+const DB = require('./db')
+const db = new DB('contacts.json')
 
-const listContacts = async () => {}
+const listContacts = async () => {
+  return await db.read()
+}
 
 const getContactById = async (contactId) => {}
 
