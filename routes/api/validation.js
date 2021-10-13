@@ -1,9 +1,9 @@
 const Joi = require('joi');
 
 const schemaContact = Joi.object({
-    "name": Joi.string().min(1).max(20).required(),
-    "email": Joi.string().email().required(),
-    "phone": Joi.string().min(10).max(15).required()
+  name: Joi.string().min(1).max(20).required(),
+  email: Joi.string().email().required(),
+  phone: Joi.string().min(10).max(15).required()
 })
 
 const pattern = '\\w{8}-\\w{4}-\\w{4}-\\w{4}-\\w{12}'
