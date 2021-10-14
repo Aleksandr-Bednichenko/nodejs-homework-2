@@ -22,7 +22,7 @@ router.put('/:contactId', [validateContactId, validateContact], updateContact)
 
 router.patch(
   '/:contactId/favorite/',
-  [validateContactId, validateStatusContact],
+  validateContactId, validateStatusContact,
   updateStatusFavoriteContact
 )
 
