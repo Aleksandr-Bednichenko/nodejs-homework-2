@@ -8,7 +8,7 @@ const schemaUser = Joi.object({
 
 
 const schemaValidateUpdateSub = Joi.object({
-    subscription: Joi.any().valid("free", "pro", "premium").required(),
+    subscription: Joi.string().required(),
   });
 
 const validate = async (schema, obj, res, next) => {
@@ -28,7 +28,7 @@ module.exports.validateUser = async (req, res, next) => {
   return await validate(schemaUser, req.body, res, next)
 }
 
-module.exports.validateUpdateSub = (req, _res, next) => {
-    return validate(schemaValidateUpdateSub, req.body, next);
+module.exports.validateUpdateSub = (req, res, next) => {
+    return validate(schemaValidateUpdateSub, req.body, res, next);
   };
 
