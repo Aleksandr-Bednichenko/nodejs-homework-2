@@ -2,7 +2,8 @@ const Contacts = require('../repository')
 
 const getContacts = async (req, res, next) => {
   try {
-    const contacts = await Contacts.listContacts()
+    const userId = req.user._id
+    const contacts = await Contacts.listContacts(userId)
     res.json({ status: 'success', code: 200, data: { contacts } })
   } catch (error) {
     next(error)
@@ -11,7 +12,8 @@ const getContacts = async (req, res, next) => {
 
 const getContact = async (req, res, next) => {
   try {
-    const contact = await Contacts.getContactById(req.params.contactId)
+    const userId = req.user._id
+    const contact = await Contacts.getContactById(req.params.contactId, userId)
     if (contact) {
       return res
         .status(200)
@@ -27,7 +29,8 @@ const getContact = async (req, res, next) => {
 
 const saveContact = async (req, res, next) => {
   try {
-    const cat = await Contacts.addContact(req.body)
+    const userId = req.user._id
+    const cat = await Contacts.addContact({...req.body, owner: userId})
     res.status(201).json({ status: 'success', code: 201, data: { cat } })
   } catch (error) {
     next(error)
@@ -36,7 +39,8 @@ const saveContact = async (req, res, next) => {
 
 const removeContact = async (req, res, next) => {
   try {
-    const contact = await Contacts.removeContact(req.params.contactId)
+    const userId = req.user._id
+    const contact = await Contacts.removeContact(req.params.contactId, userId)
     if (contact) {
       return res
         .status(200)
@@ -52,8 +56,8 @@ const removeContact = async (req, res, next) => {
 
 const updateContact = async (req, res, next) => {
   try {
-    console.log(req.method)
-    const contact = await Contacts.updateContact(req.params.contactId, req.body)
+    const userId = req.user._id
+    const contact = await Contacts.updateContact(req.params.contactId, req.body, userId)
     if (contact) {
       return res
         .status(200)
@@ -69,7 +73,8 @@ const updateContact = async (req, res, next) => {
 
 const updateStatusFavoriteContact = async (req, res, next) => {
   try {
-    const contact = await Contacts.updateContact(req.params.contactId, req.body)
+    const userId = req.user._id
+    const contact = await Contacts.updateContact(req.params.contactId, req.body, userId)
     if (contact) {
       return res
         .status(200)
