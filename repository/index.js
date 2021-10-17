@@ -1,14 +1,23 @@
 const Contact = require('../model/contact')
 
-const listContacts = async (userId) => {
-  const results = await Contact.find({ owner: userId }).populate({
+const listContacts = async (userId, query) => {
+  // const results = await Contact.find({ owner: userId }).populate({
+  //   path: 'owner',
+  //   select: 'email subscription createdAt updatedAt'
+  // })
+  const { limit = 3, page = 1 } = query
+  const searchOptions = { owner: userId }
+  const results = await Contact.paginate(searchOptions, { 
+    limit, 
+    page, 
+    populate:{
     path: 'owner',
     select: 'email subscription createdAt updatedAt'
-  })
-  // const {limit = 2, offset = 0} = query
-  // const searchOptions = { owner: userId }
-  // const results = await Contact.paginate(searchOptions, { limit, offset })
-  return results
+  } 
+})
+  const {docs: contacts} = results
+  delete results.docs
+  return {...results, contacts}
 }
 
 const getContactById = async (contactId, userId) => {

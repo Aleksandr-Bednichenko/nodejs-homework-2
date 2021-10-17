@@ -3,8 +3,8 @@ const Contacts = require('../repository')
 const getContacts = async (req, res, next) => {
   try {
     const userId = req.user._id
-    const contacts = await Contacts.listContacts(userId)
-    res.json({ status: 'success', code: 200, data: { contacts } })
+    const data = await Contacts.listContacts(userId, req.query)
+    res.json({ status: 'success', code: 200, data: { ...data } })
   } catch (error) {
     next(error)
   }

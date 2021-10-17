@@ -35,7 +35,7 @@ const contactSchema = new Schema({
 },
 )
 
-contactSchema.plugin(mongoosePaginate);
+contactSchema.plugin(mongoosePaginate)
 
 const Contact = model('contact', contactSchema)
 

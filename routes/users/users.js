@@ -8,6 +8,6 @@ router.post('/signup',validateUser, signup)
 router.post('/login',validateUser, login)
 router.post('/logout', guard, logout)
 router.get("/current", guard, currentUser)
-router.patch("/", guard, updateSub);
+router.patch("/", guard, validateUpdateSub, updateSub);
 
 module.exports = router
