@@ -16,4 +16,9 @@ const create = async (options) => {
 const updateToken = async (id, token) => {
   return await User.updateOne({ _id: id }, { token })
 }
-module.exports = { findById, findByEmail, create, updateToken }
+
+const updateSubUser = async (id, subscription) => {
+  return await User.updateOne({ _id: id }, { subscription });
+}
+
+module.exports = { findById, findByEmail, create, updateToken, updateSubUser }

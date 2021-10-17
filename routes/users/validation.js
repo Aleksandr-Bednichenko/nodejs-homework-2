@@ -32,6 +32,3 @@ module.exports.validateUpdateSub = (req, _res, next) => {
     return validate(schemaValidateUpdateSub, req.body, next);
   };
 
-// module.exports.validateStatusContact = async (req, res, next) => {
-//   return await validate(schemaStatusContact, req.body, res, next)
-// }
