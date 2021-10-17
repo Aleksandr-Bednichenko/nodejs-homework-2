@@ -5,8 +5,11 @@ const listContacts = async (userId, query) => {
   //   path: 'owner',
   //   select: 'email subscription createdAt updatedAt'
   // })
-  const { limit = 3, page = 1 } = query
+  const {favorite = null, limit = 3, page = 1 } = query
   const searchOptions = { owner: userId }
+  if (favorite !== null) {
+    searchOptions.favorite = favorite
+  }
   const results = await Contact.paginate(searchOptions, { 
     limit, 
     page, 
