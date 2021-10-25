@@ -1,14 +1,16 @@
 const express = require('express')
 const router = express.Router()
-const { signup, login, logout, currentUser, updateSub } = require('../../controllers/users')
+const { signup, login, logout, currentUser, updateSub, uploadAvatar } = require('../../controllers/users')
 const { validateUser, validateUpdateSub} = require('./validation')
 const guard = require('../../helpers/guard')
 const loginLimit  = require('../../helpers/rate-limit-login')
+const upload = require('../../helpers/uploads')
 
 router.post('/signup',validateUser, signup)
 router.post('/login',validateUser, loginLimit, login)
 router.post('/logout', guard, logout)
 router.get("/current", guard, currentUser)
-router.patch("/", guard, validateUpdateSub, updateSub);
+router.patch("/", guard, validateUpdateSub, updateSub)
+router.patch('/avatar', guard, upload.single('avatar'), uploadAvatar)
 
 module.exports = router
